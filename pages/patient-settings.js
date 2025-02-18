@@ -64,8 +64,28 @@ export default function PatientSettings() {
           <option value="Female">Female</option>
           <option value="Other">Other</option>
         </select>
-        <input type="text" name="maritalStatus" value={formData.maritalStatus} onChange={handleChange} placeholder="Marital Status" className="w-full p-2 border rounded" />
-        <input type="text" name="employmentStatus" value={formData.employmentStatus} onChange={handleChange} placeholder="Employment Status" className="w-full p-2 border rounded" />
+        
+        {/* Marital Status Dropdown */}
+        <select name="maritalStatus" value={formData.maritalStatus} onChange={handleChange} className="w-full p-2 border rounded">
+          <option value="">Select Marital Status</option>
+          <option value="Single">Single</option>
+          <option value="Married">Married</option>
+          <option value="Divorced">Divorced</option>
+          <option value="Widowed">Widowed</option>
+          <option value="Registered Partnership">Registered Partnership</option>
+          <option value="Living Common Law">Living Common Law</option>
+        </select>
+
+
+        {/* Employment Status Dropdown */}
+        <select name="employmentStatus" value={formData.employmentStatus} onChange={handleChange} className="w-full p-2 border rounded">
+          <option value="">Select Employment Status</option>
+          <option value="Employed">Employed</option>
+          <option value="Unemployed">Unemployed</option>
+        </select>
+        
+        
+        
         <input type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Phone Number" className="w-full p-2 border rounded" />
         <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="w-full p-2 border rounded" disabled />
         <input type="text" name="streetAddress" value={formData.streetAddress} onChange={handleChange} placeholder="Street Address" className="w-full p-2 border rounded" />
