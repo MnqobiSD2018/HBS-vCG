@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import ManageDoctors from "@/components/ManageDoctors";
+import Appointments from "@/components/Appointments";
+import Patients from "@/components/Patients";
+import NotifiedPatients from "@/components/NotifiedPatients";
 
 export default function AdminDashboard() {
     const [activeTab, setActiveTab] = useState("doctors");
@@ -26,37 +29,64 @@ export default function AdminDashboard() {
 
 
     return (
-        <div className="flex h-screen">
-            {/* Sidebar */}
-            <div className="w-64 bg-gray-900 text-white p-4">
-                <h2 className="text-2xl font-bold mb-4">Admin Dashboard</h2>
-                <ul>
-                    <li
-                        className={`p-2 cursor-pointer ${activeTab === "doctors" ? "bg-gray-700" : ""}`}
-                        onClick={() => setActiveTab("doctors")}
-                    >
-                        Manage Doctors
-                    </li>
-                    <li
-                        className={`p-2 cursor-pointer ${activeTab === "appointments" ? "bg-gray-700" : ""}`}
-                        onClick={() => setActiveTab("appointments")}
-                    >
-                        View Appointments
-                    </li>
-                </ul>
-                <button
-                    onClick={handleLogout}
-                    className="mt-6 w-full bg-red-500 text-white p-2 rounded"
-                >
-                    Logout
-                </button>
-            </div>
+        <div className="flex h-screen bg-gray-100">
+        {/* Sidebar */}
+        <div className="w-64 bg-gray-900 text-white flex flex-col p-6">
+            <h2 className="text-2xl font-bold mb-6 text-center">Admin Dashboard</h2>
 
-            {/* Main Content */}
-            <div className="flex-1 p-6">
-                {activeTab === "doctors" && <ManageDoctors />}
-                {activeTab === "appointments" && <p>Appointments Management (Coming Soon)</p>}
-            </div>
+            <ul className="flex-1 space-y-2">
+                <SidebarItem 
+                    label="Manage Doctors" 
+                    active={activeTab === "doctors"} 
+                    onClick={() => setActiveTab("doctors")} 
+                />
+                <SidebarItem 
+                    label="View Appointments" 
+                    active={activeTab === "appointments"} 
+                    onClick={() => setActiveTab("appointments")} 
+                />
+                <SidebarItem 
+                    label="Patients" 
+                    active={activeTab === "patients"} 
+                    onClick={() => setActiveTab("patients")} 
+                />
+                <SidebarItem 
+                    label="Notified Patients" 
+                    active={activeTab === "patientnotifications"} 
+                    onClick={() => setActiveTab("patientnotifications")} 
+                />
+
+            </ul>
+
+            <button
+                onClick={handleLogout}
+                className="bg-red-500 hover:bg-red-600 p-3 rounded-lg transition duration-200 text-center mt-6"
+            >
+                Logout
+            </button>
         </div>
-    );
+
+        {/* Main Content */}
+        <div className="flex-1 p-6">
+            {activeTab === "doctors" && <ManageDoctors />}
+            {activeTab === "appointments" && <Appointments />}
+            {activeTab === "patients" && <Patients />}
+            {activeTab === "patientnotifications" && <NotifiedPatients />}
+        </div>
+    </div>
+);
+}
+
+// Sidebar Item Component
+function SidebarItem({ label, active, onClick }) {
+return (
+    <li
+        className={`p-3 cursor-pointer rounded-lg text-center transition duration-200 ${
+            active ? "bg-gray-700" : "hover:bg-gray-800"
+        }`}
+        onClick={onClick}
+    >
+        {label}
+    </li>
+);
 }
